@@ -148,11 +148,15 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    // Oppgave 3: første postorden er den første noden når en traverserer som er en bladnode
     private static <T> Node<T> førstePostorden(Node<T> p) {
+        // minner om en av ukesoppgavene fra uke42, må sjekke ut
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    // Oppgave 3: neste postorden må ha noe å gjøre med forelder til første postorden
     private static <T> Node<T> nestePostorden(Node<T> p) {
+        // minner også om en av ukesoppgavene fra uke42
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
