@@ -82,7 +82,9 @@ public class SBinTre<T> {
         return antall == 0;
     }
 
+    // Oppgave 1: Ta utgangspunkt i Programkode 5.2.3 fra kompendiet
     public boolean leggInn(T verdi) {
+        // Husk på at her trengs flere referanser enn i kompendiet
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
