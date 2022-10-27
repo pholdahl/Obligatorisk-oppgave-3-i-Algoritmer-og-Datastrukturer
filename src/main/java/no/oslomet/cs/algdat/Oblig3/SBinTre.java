@@ -117,7 +117,9 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
     public int antall(T verdi) {
+        // Jeg tror jeg kommer til å ta utgangspunkt i inneholder() metoden fra kompendiet
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
