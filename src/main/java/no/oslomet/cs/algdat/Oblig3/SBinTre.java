@@ -119,8 +119,29 @@ public class SBinTre<T> {
 
     // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
     public int antall(T verdi) {
-        // Jeg tror jeg kommer til å ta utgangspunkt i inneholder() metoden fra kompendiet
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        // Har tatt utgangspunkt i inneholder() metoden fra kompendiet, da den finner verdier og retunerer true, verdien eksisterer
+        // Har gjort endringer slik at den kan telle opp antallet av den verdien som sendes inn
+        if (verdi == null) {
+            return 0;
+        }
+
+        int antall = 0;                                                         // initierer tellevariabel
+        int cmp = 0;                                                            // sammenlikningsvariabel
+        Node<T> p = rot;                                                        // traverserer fra roten
+
+        while (p != null) {                                                     // så lenge p er ulik null
+            cmp = comp.compare(verdi, p.verdi);
+            if (cmp < 0) {
+                p = p.venstre;
+            }
+            else {                                                              // hvis ikke mindre enn 0, er verdien større eller lik p.verdi
+                if(cmp == 0) {                                                  // sjekker først om om de er like
+                    antall++;                                                   // i så fall øker vi antallet
+                }
+                p = p.høyre;
+            }
+        }
+        return antall;                                                          // returnerer antallet
     }
 
     public void nullstill() {
