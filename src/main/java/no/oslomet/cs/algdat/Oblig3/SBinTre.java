@@ -3,6 +3,7 @@ package no.oslomet.cs.algdat.Oblig3;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class SBinTre<T> {
@@ -84,8 +85,28 @@ public class SBinTre<T> {
 
     // Oppgave 1: Ta utgangspunkt i Programkode 5.2.3 fra kompendiet
     public boolean leggInn(T verdi) {
-        // Husk på at her trengs flere referanser enn i kompendiet
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
+        Node<T> p = rot;
+        Node<T> q = null;
+        int cmp = 0;
+
+        while (p != null) {
+            q = p;
+            cmp = comp.compare(verdi, p.verdi);
+            p = cmp < 0 ? p.venstre : p.høyre;
+        }
+                                                                                // ute av while løkken her, p er nå lik null!
+        p = new Node<>(verdi, null, null, q);                             // Husk på at her trengs flere referanser enn i kompendiet
+
+        if(q == null) {
+            rot = p;
+        } else if(cmp < 0) {
+            q.venstre = p;
+        } else {
+            q.høyre = p;
+        }
+        antall++;
+        return true;
     }
 
     public boolean fjern(T verdi) {
