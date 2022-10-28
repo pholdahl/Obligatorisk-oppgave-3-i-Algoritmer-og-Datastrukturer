@@ -208,11 +208,15 @@ public class SBinTre<T> {
         postordenRecursive(rot, oppgave);                                       // kaller den private metoden med rot og oppgave som input
     }
 
+    // Oppgave 5: Skal gjøre om et binærtre til en ArrayList (må bruke en stack)
     public ArrayList<T> serialize() {
+        // Tenker at jeg må se litt på ukesoppgavene fra uke 41
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    // Oppgave 5: Skal gjøre om en ArrayList til et binærtre
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
+        // Dette blir på en måte bare motsatt av hva jeg gjør i metoden over
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
