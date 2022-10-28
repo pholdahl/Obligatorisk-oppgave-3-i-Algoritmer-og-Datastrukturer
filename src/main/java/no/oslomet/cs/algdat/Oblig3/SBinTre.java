@@ -18,7 +18,7 @@ public class SBinTre<T> {
             this.forelder = forelder;
         }
 
-        private Node(T verdi, Node<T> forelder)  // konstruktør
+        private Node(T verdi, Node<T> forelder)     // konstruktør
         {
             this(verdi, null, null, forelder);
         }
@@ -36,7 +36,7 @@ public class SBinTre<T> {
 
     private final Comparator<? super T> comp;       // komparator
 
-    public SBinTre(Comparator<? super T> c)    // konstruktør
+    public SBinTre(Comparator<? super T> c)         // konstruktør
     {
         rot = null;
         antall = 0;
@@ -81,29 +81,29 @@ public class SBinTre<T> {
     }
 
     // Oppgave 1: Ta utgangspunkt i Programkode 5.2.3 fra kompendiet
-    public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
-        Node<T> p = rot;
-        Node<T> q = null;
-        int cmp = 0;
+    public boolean leggInn(T verdi) {                                           // Tar utgangspunkt i koden fra kompendiet, tar inn en verdi
+        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");     // kan ikke være null
+        Node<T> p = rot;                                                        // node p er lik rot til traversering
+        Node<T> q = null;                                                       // node q er lik null er foreldrenoden til p
+        int cmp = 0;                                                            // cmp variabel til å sammenlikne
 
-        while (p != null) {
-            q = p;
-            cmp = comp.compare(verdi, p.verdi);
-            p = cmp < 0 ? p.venstre : p.høyre;
+        while (p != null) {                                                     // så lenge p ikke er null
+            q = p;                                                              // lagrer p som neste forelder i q
+            cmp = comp.compare(verdi, p.verdi);                                 // sammenlikner verdi input på p verdien
+            p = cmp < 0 ? p.venstre : p.høyre;                                  // ut i fra sammenlikningen skal p traversere til venstre eller til høyre
         }
                                                                                 // ute av while løkken her, p er nå lik null!
-        p = new Node<>(verdi, null, null, q);                             // Husk på at her trengs flere referanser enn i kompendiet
+        p = new Node<>(verdi, null, null, q);                             // her er forskjellen fra koden i kompendiet, flere referanser!
 
-        if(q == null) {
-            rot = p;
-        } else if(cmp < 0) {
-            q.venstre = p;
-        } else {
-            q.høyre = p;
+        if(q == null) {                                                         // sjekk om q fortsatt er lik null
+            rot = p;                                                            // i så fall lagres verdi som den første noden i treet, rot
+        } else if(cmp < 0) {                                                    // ellers, hvis sammenlikningsvariabelen cmp er mindre enn 0
+            q.venstre = p;                                                      // er p det venstre barnet til q
+        } else {                                                                // ellers må det motsatte gjelde
+            q.høyre = p;                                                        // og p er det høyre banret til q
         }
-        antall++;
-        return true;
+        antall++;                                                               // øker antall
+        return true;                                                            // en vellykket innlegging!
     }
 
     // Oppgave 6: fjern()
@@ -111,55 +111,53 @@ public class SBinTre<T> {
     // 2. p har nøyaktig ett barn(venstre eller høyre barn)
     // 3. p har to barn
     // alle p har forelder!
-    public boolean fjern(T verdi) {
+    public boolean fjern(T verdi) {                                             // tar utgangspunkt i kode fra kompendiet, tar inn verdien vi vil fjerne
         if (verdi == null) {
-            return false;                                           // treet har ingen nullverdier
+            return false;                                                       // treet har ingen nullverdier
         }
-        Node<T> p = rot;
-        Node<T> q = null;                                           // q skal være forelder til p
-        while (p != null) {                                         // leter etter verdi
-            int cmp = comp.compare(verdi,p.verdi);                  // sammenlikner
-            if (cmp < 0) {
-                q = p;                                              // q er forelder til p
-                p = p.venstre;                                      // går til venstre
-            } else if (cmp > 0) {
-                q = p;                                              // q er forelder til p
-                p = p.høyre;                                        // går til høyre
-            } else break;                                             // den søkte verdien ligger i p
+        Node<T> p = rot;                                                        // en p-node til traversering, vi starter i rot
+        Node<T> q = null;                                                       // q skal være forelder til p
+        while (p != null) {                                                     // leter etter verdi
+            int cmp = comp.compare(verdi,p.verdi);                              // sammenlikner
+            if (cmp < 0) {                                                      // hvis sammenlikningsvariabelen cmp er mindre enn 0
+                q = p;                                                          // er q forelder til p
+                p = p.venstre;                                                  // p går til venstre
+            } else if (cmp > 0) {                                               // hvis sammenlikningsvariabelen cmp er større enn 0
+                q = p;                                                          // er q forelder til p
+                p = p.høyre;                                                    // p går til høyre
+            } else break;                                                       // den søkte verdien ligger i p
         }
-        if (p == null) {
-            return false;                                           // finner ikke verdi
+        if (p == null) {                                                        // hvis traverseringsvariabelen p er lik null
+            return false;                                                       // så eksisterer ikke verdien vi vil fjerne i treet
         }
-        // nullpointer exceptions!!!
-        if (p.venstre == null || p.høyre == null) {                 // Tilfelle 1) og 2) -> venstre eller høyre bladnode, eller 1 høyre eller venstre barn
-            Node<T> b = p.venstre != null ? p.venstre : p.høyre;    // b for barn
-            if(b != null) {                                         // TODO: det var denne som plaget meg!
-                b.forelder = q;                                     //
+        if (p.venstre == null || p.høyre == null) {                             // Tilfelle 1) og 2) -> venstre eller høyre bladnode, eller 1 høyre eller venstre barn
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;                // b for barn
+            if(b != null) {                                                     // her er den store forskjellen i koden fra kompendiet! (som ga meg mye hodepine!)
+                b.forelder = q;                                                 // hvis b er ulik null, er q foreldrenoden til b
             }
-            if (p == rot) {
-                rot = b;
-            } else if (p == q.venstre) {
-                q.venstre = b;
-            } else {
-                q.høyre = b;
+            if (p == rot) {                                                     // hvis p er lik roten av treet
+                rot = b;                                                        // så er b den første noden, roten
+            } else if (p == q.venstre) {                                        // ellers, hvis p er lik foreldrenodens venstre barn
+                q.venstre = b;                                                  // så er b venstrebarnet til q
+            } else {                                                            // hvis ikke så er det motsatt
+                q.høyre = b;                                                    // b er høyrebarnet til b
             }
-        } else {                                                    // Tilfelle 3) hvis p har to barn
-            Node<T> s = p;                                          // s er lik p
-            Node<T> r = p.høyre;                                    // finner neste i inorden r = p sitt høyre barn
-            while (r.venstre != null) {                             // så lenge r sitt venstrebarn ikke er null
-                s = r;                                              // s er forelder til r
-                r = r.venstre;                                      // r er lik r sitt venstre barn
+        } else {                                                                // Tilfelle 3) hvis p har to barn
+            Node<T> s = p;                                                      // s er lik p
+            Node<T> r = p.høyre;                                                // finner neste i inorden r = p sitt høyre barn
+            while (r.venstre != null) {                                         // så lenge r sitt venstrebarn ikke er null
+                s = r;                                                          // s er forelder til r
+                r = r.venstre;                                                  // r er lik r sitt venstre barn
             }
-            p.verdi = r.verdi;                                      // p = r = 4 kopierer verdien i r til p, fordi verdien til høyre for p er større enn verdien til venstre for p
-            if (s != p) {                                           // hvis s er ulik p
-                s.venstre = r.høyre;                                // er s sitt venstre barn lik r sitt høyre barn
+            p.verdi = r.verdi;                                                  // p = r = 4 kopierer verdien i r til p, fordi verdien til høyre for p er større enn verdien til venstre for p
+            if (s != p) {                                                       // hvis s er ulik p
+                s.venstre = r.høyre;                                            // er s sitt venstre barn lik r sitt høyre barn
             }
             else {
-                s.høyre = r.høyre;                                 // ellers er s sitt høyre barn lik r sitt høyre barn
+                s.høyre = r.høyre;                                              // ellers er s sitt høyre barn lik r sitt høyre barn
             }
         }
-
-        antall--;   // det er nå én node mindre i treet
+        antall--;                                                               // reduserer antallet
         return true;
     }
 
