@@ -106,12 +106,70 @@ public class SBinTre<T> {
         return true;
     }
 
+    // 1. p har ingen barn(p er en bladnode)
+    // 2. p har nøyaktig ett barn(venstre eller høyre barn)
+    // 3. p har to barn
+    // alle p har forelder!
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (verdi == null) {
+            return false;                                           // treet har ingen nullverdier
+        }
+        Node<T> p = rot;
+        Node<T> q = null;                                           // q skal være forelder til p
+        while (p != null) {                                         // leter etter verdi
+            int cmp = comp.compare(verdi,p.verdi);                  // sammenlikner
+            if (cmp < 0) {
+                q = p;                                              // q er forelder til p
+                p = p.venstre;                                      // går til venstre
+            } else if (cmp > 0) {
+                q = p;                                              // q er forelder til p
+                p = p.høyre;                                        // går til høyre
+            } else break;                                             // den søkte verdien ligger i p
+        }
+        if (p == null) {
+            return false;                                           // finner ikke verdi
+        }
+        // nullpointer exceptions!!!
+        if (p.venstre == null || p.høyre == null) {                 // Tilfelle 1) og 2) -> venstre eller høyre bladnode, eller 1 høyre eller venstre barn
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;    // b for barn
+            if(b != null) {                                         // TODO: det var denne som plaget meg!
+                b.forelder = q;                                     //
+            }
+            if (p == rot) {
+                rot = b;
+            } else if (p == q.venstre) {
+                q.venstre = b;
+            } else {
+                q.høyre = b;
+            }
+        } else {                                                    // Tilfelle 3) hvis p har to barn
+            Node<T> s = p;                                          // s er lik p
+            Node<T> r = p.høyre;                                    // finner neste i inorden r = p sitt høyre barn
+            while (r.venstre != null) {                             // så lenge r sitt venstrebarn ikke er null
+                s = r;                                              // s er forelder til r
+                r = r.venstre;                                      // r er lik r sitt venstre barn
+            }
+            p.verdi = r.verdi;                                      // p = r = 4 kopierer verdien i r til p, fordi verdien til høyre for p er større enn verdien til venstre for p
+            if (s != p) {                                           // hvis s er ulik p
+                s.venstre = r.høyre;                                // er s sitt venstre barn lik r sitt høyre barn
+            }
+            else {
+                s.høyre = r.høyre;                                 // ellers er s sitt høyre barn lik r sitt høyre barn
+            }
+        }
+
+        antall--;   // det er nå én node mindre i treet
+        return true;
     }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int antall = -1;
+        boolean fjernet = true;
+        while(fjernet) {
+            antall++;
+            fjernet = fjern(verdi);
+        }
+        return antall;
     }
 
     // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
