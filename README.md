@@ -13,7 +13,15 @@ i koden der jeg måtte legge inn flere referanser til høyre/venstre barn og for
 I oppgave 2 så endret jeg en inneholder(T verdi) metode fra kompendiet til å telle antallet av input verdi i en while løkke
 og returnere dette antallet, i stedet for å returnere true/false.
 
-I oppgave 3 så...
+Oppgave 3 sin førstePostorden(T verdi) minnet om en oppgave jeg allerede hadde gjort fra uke42 i fra kompendiet. Jeg endret den kodesnutten, som 
+opprinnelig inneholdt en NoSuchElementException, til å i stedet returnere null hvis p var null. Det fungerte fint, deretter
+begynte jeg å se på nestePostorden(T verdi). Jeg forstod fort at dette måtte han noe gjøre med p sin forelder, og tok utgangspunkt
+i det når jeg fortsatte å kode metoden. Jeg prøvde å kode den slik at hvis p sin forelder sin høyre er p eller null,
+da må vi befinne oss nederst til høyre på en gren, og kan da returnere forelderen, mens hvis ikke, altså hvis foreldrenoden til p
+sin høyre eksisterer, så må vi traversere oss helt ned til venstre fra foreldrenoden sitt høyre barn. Jeg hadde tidligere
+en versjon av denne metoden som passerte testene til oppgave 3, men som beskrevet i oppgave 6, likevel inneholdt feil. Det var under feilsøking
+av oppgave 6 at jeg oppdaget at jeg i det siste tilfellet i nestePostorden metoden like gjerne kunne bruke den allerede
+kodete førstePostorden metoden.
 
 I oppgave 4 så...
 

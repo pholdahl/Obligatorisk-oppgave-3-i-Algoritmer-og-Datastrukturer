@@ -201,7 +201,7 @@ public class SBinTre<T> {
     }
 
     /**
-     * Oppgave 2: anttal(T verdi)
+     * Oppgave 2: antall(T verdi)
      * denne returnerer antallet forekomster av en input verdi i treet
      * tar hensyn til at det er lov med duplikater i treet
      * tar utgangspunkt i en inneholder(T verdi) metode fra kompendiet,
@@ -230,33 +230,40 @@ public class SBinTre<T> {
         return antall;                                                          // returnerer antallet
     }
 
-
-    // Oppgave 3: første postorden er den første noden når en traverserer som er en bladnode
-    private static<T> Node<T> førstePostorden(Node<T> p) {
+    /**
+     * Oppgave 3: førstePostorden(Node<T> p)
+     * førstePostorden er den første noden i treet med hensyn på postorden traversering
+     * der det ikke finnes venstre eller høyrebarn, altså den første bladnoden helt til venstre
+     */
+    private static<T> Node<T> førstePostorden(Node<T> p) {                      // tar inn en node p
         if(p == null) {                                                         // hvis p er null, er input enten en nullverdi, eller foreldrenoden til roten i treet
             return null;                                                        // returner null
         }
-        while(true) {                                                           // while løkke som brytes ved break eller return
+        while(true) {                                                           // while løkke som brytes return
             if(p.venstre != null) {                                             // hvis p sitt venstre barn ikke er null
-                p = p.venstre;                                                  // da er p lik sitt venstre barn
+                p = p.venstre;                                                  // da går p ned til sitt venstre barn
             } else if(p.høyre != null) {                                        // hvis p sitt venstre barn er null, og p sitt høyre barn ikke er null
-                p = p.høyre;                                                    // da er p lik sitt høyre barn
-            } else {                                                            // hvis p sitt venstre og høyre barn er null, er det en bladnode
+                p = p.høyre;                                                    // da går p ned til sitt høyre barn
+            } else {                                                            // ellers så må p sitt venstre og høyre barn være null, og da er det en bladnode
                 return p;                                                       // den første noden i postorden returneres
             }
         }
     }
 
-    // Oppgave 3: neste postorden må ha noe å gjøre med forelder til første postorden
-    private static <T> Node<T> nestePostorden(Node<T> p) {                      // det som skal inn her som p er den første i postorden
+    /**
+     * Oppgave 3: nestePostorden(Node<T> p)
+     * nestePostorden henter den neste i rekke av en postorden traversering
+     * gitt at input er den første eller den neste i postorden
+     */
+    private static <T> Node<T> nestePostorden(Node<T> p) {                      // det som skal inn her som p er den første eller neste i postorden
         Node<T> q = p.forelder;                                                 // henter ut forelder til p og legger i q
-        if(q == null) {                                                         // sjekker om q er null, i så fall er p rot
+        if(q == null) {                                                         // sjekker om q er null, i så fall må p være rot
             return null;                                                        // så da returnerer vi null
         }
         if(q.høyre == p || q.høyre == null) {                                   // hvis ikke så sjekker vi om q sin høyre er lik p eller om q sin høyre er lik null
-            return q;                                                           // i så fall skal vi returnere q
+            return q;                                                           // hvis det gjelder så skal vi returnere forelder til p, altså q
         }
-        return førstePostorden(q.høyre);                                        // hvis ikke må vi finne q sin høyre sitt barn lengst til venstre
+        return førstePostorden(q.høyre);                                        // hvis ikke så må vi finne q sitt høyre barns sitt venstre barn lengst ned til venstre
     }
 
     // Oppgave 4: postorden med oppgave
