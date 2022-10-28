@@ -175,9 +175,21 @@ public class SBinTre<T> {
     }
 
     // Oppgave 6: nullstill(), denne her er noe annet en fjern
+    // nullstill som bruker første og neste postorden
     public void nullstill() {
-        // denne bruker ikke fjern,
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(antall > 1){                         // hvis antallet er større enn 1
+            Node<T> p = førstePostorden(rot);   // (barn) første bladnode
+            while(!tom()) {
+                Node<T> q = nestePostorden(p);  // (forelder) må ta vare på foreldrenoden, da vi nuller ut referansen
+                if(p.forelder != null) {        // hvis p sin forelder ikke er null
+                    p.forelder = null;          // sett foreldre referansen til null
+                }
+                p = q;                          // p er lik sin forelder
+                antall--;                       // 1 mindre node i treet
+            }
+        }
+        rot = null;                             // siste node, rot er lik 0
+        antall = 0;                             // antall er nå 0;
     }
 
     // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
