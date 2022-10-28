@@ -28,7 +28,14 @@ av kode i toStringPostOrder metoden lengre opp i klassen. I stedet for å bruke 
 Deretter brukte jeg mer eller mindre direkte den rekursive postorden metoden jeg tidligere har kodet i kompendiet på 
 den rekursive versjonen av postorden med oppgave.
 
-I oppgave 5 så...
+I oppgave 5 så tenkte jeg fort at jeg måtte se litt tilbake til de oppgavene jeg tidligere hadde gjort i fra uke 41, og kø
+og stack og sånt. Aller først misforstod jeg og trodde jeg skulle bruke en stack, men så gikk det opp for meg at det jo stod
+i oppgaven at det skulle være en kø. Deretter tok jeg i bruk ArrayListe som kø, men fant etterhvert ut at det kanskje var mer 
+riktig å bruke en ArrayDeque, spesielt i forbindelse med den delen av koden i serialize() som faktisk skal oppføre seg osm en kø.
+Jeg fant også ut at jeg kunne legg inn antallet direkte, slik at hverken ArrayDeque eller ArrayList driver å utvider seg mens
+metoden kjører. 
+deserialize() metoden var mye enklere å kode, siden vi bare kunne ta verdiene direkte fra arrayet som går inni metoden og bruke 
+tre objektets leggInn metode direkte i en for løkke. 
 
 I oppgave 6 så tok jeg utgangspunkt i fjern(T verdi) metoden fra kompendiet, men måtte finne ut av hvordan jeg skulle gjøre det
 med foreldrereferansen. Etter mye om og men, og tegning av trær, og oppskriving av referanser for hånd, og testing med

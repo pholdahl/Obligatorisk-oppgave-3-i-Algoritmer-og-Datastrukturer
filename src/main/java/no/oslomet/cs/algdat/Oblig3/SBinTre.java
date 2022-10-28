@@ -82,7 +82,7 @@ public class SBinTre<T> {
 
     // Oppgave 1: Ta utgangspunkt i Programkode 5.2.3 fra kompendiet
     public boolean leggInn(T verdi) {                                           // Tar utgangspunkt i koden fra kompendiet, tar inn en verdi
-        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");     // kan ikke være null
+        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");      // kan ikke være null
         Node<T> p = rot;                                                        // node p er lik rot til traversering
         Node<T> q = null;                                                       // node q er lik null er foreldrenoden til p
         int cmp = 0;                                                            // cmp variabel til å sammenlikne
@@ -93,7 +93,7 @@ public class SBinTre<T> {
             p = cmp < 0 ? p.venstre : p.høyre;                                  // ut i fra sammenlikningen skal p traversere til venstre eller til høyre
         }
                                                                                 // ute av while løkken her, p er nå lik null!
-        p = new Node<>(verdi, null, null, q);                             // her er forskjellen fra koden i kompendiet, flere referanser!
+        p = new Node<>(verdi, null, null, q);                              // her er forskjellen fra koden i kompendiet, flere referanser!
 
         if(q == null) {                                                         // sjekk om q fortsatt er lik null
             rot = p;                                                            // i så fall lagres verdi som den første noden i treet, rot
@@ -273,15 +273,15 @@ public class SBinTre<T> {
      * Tar i bruk førstePostorden() og nestePostorden() fra oppgave 3.
      */
     // Oppgave 4: postorden med oppgave
-    public void postorden(Oppgave<? super T> oppgave) {                     // tar inn en oppgave
-        if(tom()) {                                                         // hvis treet er tomt
-            return;                                                         // returnerer, fordi da finnes ikke noder å gjøre oppgaver på
+    public void postorden(Oppgave<? super T> oppgave) {                         // tar inn en oppgave
+        if(tom()) {                                                             // hvis treet er tomt
+            return;                                                             // returnerer, fordi da finnes ikke noder å gjøre oppgaver på
         }
-        Node<T> p = førstePostorden(rot);                                   // finner første node i postorden
-        while (p != null) {                                                 // så lenge p ikke er lik null
-            oppgave.utførOppgave(p.verdi);                                  // utfør oppgave (den første gang er det den første i postorden)
-            p = nestePostorden(p);                                          // bruker nestepostorden metoden ellers
-        }                                                                   // tilslutt blir p lik null, og da bryter vi ut av while løkka
+        Node<T> p = førstePostorden(rot);                                       // finner første node i postorden
+        while (p != null) {                                                     // så lenge p ikke er lik null
+            oppgave.utførOppgave(p.verdi);                                      // utfør oppgave (den første gang er det den første i postorden)
+            p = nestePostorden(p);                                              // bruker nestepostorden metoden ellers
+        }                                                                       // tilslutt blir p lik null, og da bryter vi ut av while løkka
     }
 
     /**
@@ -309,15 +309,18 @@ public class SBinTre<T> {
         }
     }
 
-    // Oppgave 5: Skal gjøre om et binærtre til en ArrayList (må ikke bruke en stack, SKAL BRUKE EN KØ!)
-    public ArrayList<T> serialize() {
+    /**
+     * Oppgave 5: serialize()
+     * en metode som lagrer verdiene fra et binærtre i et array og returner
+     */
+    public ArrayList<T> serialize() {                                           // tar ikke inputs
         if (tom()) {                                                            // hvis binærtreet er tomt
             return null;                                                        // returner null;
         }
         ArrayDeque<Node<T>> kø = new ArrayDeque<>(antall);                      // ellers bruker jeg en ArrayDeque som kø for nodene
-        ArrayList<T> a = new ArrayList<>(antall);                               // og lager en Arraylist a som skal returnere verdiene
+        ArrayList<T> a = new ArrayList<>(antall);                               // og lager en ArrayList a som skal returnere verdiene
         kø.add(rot);                                                            // legger til roten i køen
-        while (!kø.isEmpty()) {                                                 // while løkke så lenge køen har innhold
+        while (!kø.isEmpty()) {                                                 // while løkke så lenge køen inneholder noder
             Node<T> p = kø.poll();                                              // tar ut den første i køen og lagrer i p
             a.add(p.verdi);                                                     // legger p sin verdi inn i a
             if (p.venstre != null) {                                            // sjekker om p sin venstre er ulik null
@@ -325,14 +328,18 @@ public class SBinTre<T> {
             }                                                                   // hvis p sin venstre er null
             if (p.høyre != null) {                                              // sjekker vi om p sin høyre er ulik null
                 kø.add(p.høyre);                                                // hvis den er det, så legger vi den inn i køen
-            }                                                                   // og lik fortsetter vi helt til køen er tom
+            }                                                                   // og slik fortsetter vi helt til køen er tom
         }
         return a;                                                               // returnerer a med verdiene lagt inn i riktig rekkefølge
     }
 
-    // Oppgave 5: Skal gjøre om en ArrayList til et binærtre
-    static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        SBinTre<K> tre = new SBinTre<>(c);                                      // lager et binærtre som skal returneres
+    /**
+     * Oppgave 5: deserialize(ArrayList<K> data, Comparator<? super K> c)
+     * en metode som henter verdier fra et array og returnerer et SBinTre
+     */
+    static <T> SBinTre<T> deserialize(ArrayList<T> data,                        // tar inn et array, og en comparator
+                                      Comparator<? super T> c) {
+        SBinTre<T> tre = new SBinTre<>(c);                                      // lager et binærtre som skal returneres
         for(int i = 0; i < data.size(); i++) {                                  // bruker en for løkke til å hente ut fra arrayet
             tre.leggInn(data.get(i));                                           // legger verdiene inn i treet
         }
