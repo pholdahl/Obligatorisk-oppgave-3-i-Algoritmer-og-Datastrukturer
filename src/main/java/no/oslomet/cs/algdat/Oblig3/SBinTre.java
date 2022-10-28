@@ -106,6 +106,7 @@ public class SBinTre<T> {
         return true;
     }
 
+    // Oppgave 6: fjern()
     // 1. p har ingen barn(p er en bladnode)
     // 2. p har nøyaktig ett barn(venstre eller høyre barn)
     // 3. p har to barn
@@ -162,6 +163,7 @@ public class SBinTre<T> {
         return true;
     }
 
+    // Oppgave 6: fjernAlle()
     public int fjernAlle(T verdi) {
         int antall = -1;
         boolean fjernet = true;
@@ -170,6 +172,12 @@ public class SBinTre<T> {
             fjernet = fjern(verdi);
         }
         return antall;
+    }
+
+    // Oppgave 6: nullstill(), denne her er noe annet en fjern
+    public void nullstill() {
+        // denne bruker ikke fjern,
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
     // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
@@ -199,9 +207,6 @@ public class SBinTre<T> {
         return antall;                                                          // returnerer antallet
     }
 
-    public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
 
     // Oppgave 3: første postorden er den første noden når en traverserer som er en bladnode
     private static<T> Node<T> førstePostorden(Node<T> p) {
@@ -228,11 +233,7 @@ public class SBinTre<T> {
         if(q.høyre == p || q.høyre == null) {                                   // hvis ikke så sjekker vi om q sin høyre er lik p eller om q sin høyre er lik null
             return q;                                                           // i så fall skal vi returnere q
         }
-        Node<T> n = q.høyre;                                                    // hvis ikke, så må vi hente ut q sin høyre, legger den i n
-        while(n.venstre != null) {                                              // while løkke for å traversere ned til venstre
-            n = n.venstre;                                                      // til vi finner den noden lengst til venstre
-        }
-        return n;                                                               // returnerer noden lengst til venstre
+        return førstePostorden(q.høyre);                                        // hvis ikke må vi finne q sin høyre sitt barn lengst til venstre
     }
 
     // Oppgave 4: postorden med oppgave
