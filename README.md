@@ -23,7 +23,10 @@ en versjon av denne metoden som passerte testene til oppgave 3, men som beskreve
 av oppgave 6 at jeg oppdaget at jeg i det siste tilfellet i nestePostorden metoden like gjerne kunne bruke den allerede
 kodete førstePostorden metoden.
 
-I oppgave 4 så...
+I oppgave 4 sin første postorden metoden gjenkjente jeg hvordan jeg måtte kode den ut i fra hva som allerede stod skrevet
+av kode i toStringPostOrder metoden lengre opp i klassen. I stedet for å bruke en StringJoiner, tok jeg heller i bruk oppgave.
+Deretter brukte jeg mer eller mindre direkte den rekursive postorden metoden jeg tidligere har kodet i kompendiet på 
+den rekursive versjonen av postorden med oppgave.
 
 I oppgave 5 så...
 

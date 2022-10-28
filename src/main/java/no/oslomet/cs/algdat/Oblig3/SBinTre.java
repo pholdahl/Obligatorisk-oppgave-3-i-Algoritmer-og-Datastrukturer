@@ -266,10 +266,16 @@ public class SBinTre<T> {
         return førstePostorden(q.høyre);                                        // hvis ikke så må vi finne q sitt høyre barns sitt venstre barn lengst ned til venstre
     }
 
+    /**
+     * Oppgave 4: postorden(Oppgave<? super T> oppgave)
+     * en postorden metode som gjennomfører egendefinerte oppgaver på nodene
+     * i en postorden traversering.
+     * Tar i bruk førstePostorden() og nestePostorden() fra oppgave 3.
+     */
     // Oppgave 4: postorden med oppgave
-    public void postorden(Oppgave<? super T> oppgave) {
+    public void postorden(Oppgave<? super T> oppgave) {                     // tar inn en oppgave
         if(tom()) {                                                         // hvis treet er tomt
-            return;                                                         // returner, fordi da finnes ikke noder å gjøre oppgaver på
+            return;                                                         // returnerer, fordi da finnes ikke noder å gjøre oppgaver på
         }
         Node<T> p = førstePostorden(rot);                                   // finner første node i postorden
         while (p != null) {                                                 // så lenge p ikke er lik null
@@ -278,8 +284,12 @@ public class SBinTre<T> {
         }                                                                   // tilslutt blir p lik null, og da bryter vi ut av while løkka
     }
 
-    // Oppgave 4: postorden rekursivt med oppgave
-    private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
+    /**
+     * Oppgave 4: postordenRecursive(Node<T> p, Oppgave<? super T> oppgave)
+     * en privat rekursiv postorden metode som gjennomfører egendefinerte oppgaver på nodene
+     * i en postorden traversering. Kalles av en public postorden metode.
+     */
+    private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {    // tar inn en node og en oppgave
         if(p.venstre != null) {                                                 // hvis p sin venstre er ulik null
             postordenRecursive(p.venstre, oppgave);                             // send p sin venstre med oppgave rekursivt inn i metoden                                          // at p sitt venstre og p sitt høyre barn != null
         }                                                                       // foregår helt til p sin venstre er lik null
@@ -289,9 +299,14 @@ public class SBinTre<T> {
         oppgave.utførOppgave(p.verdi);                                          // hvis p sin venstre og p sin høyre er lik null
     }                                                                           // er det en bladnode, utfør oppgave!
 
-    // Oppgave 4: postorden rekursivt med oppgave, bytta om så private metoden ligger over public metoden
-    public void postordenRecursive(Oppgave<? super T> oppgave) {
-        postordenRecursive(rot, oppgave);                                       // kaller den private metoden med rot og oppgave som input
+    /**
+     * Oppgave 4: postordenRecursive(Node<T> p, Oppgave<? super T> oppgave)
+     * denne metoden kaller på den private postordenRecursive metoden
+     */
+    public void postordenRecursive(Oppgave<? super T> oppgave) {                // tar inn en oppgave
+        if(!tom()){                                                             // så lenge treet ikke er tomt
+            postordenRecursive(rot, oppgave);                                   // kaller den private metoden med rot og oppgave som input
+        }
     }
 
     // Oppgave 5: Skal gjøre om et binærtre til en ArrayList (må ikke bruke en stack, SKAL BRUKE EN KØ!)
