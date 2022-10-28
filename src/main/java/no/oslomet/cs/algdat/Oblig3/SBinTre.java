@@ -102,6 +102,7 @@ public class SBinTre<T> {
         } else {                                                                // ellers må det motsatte gjelde
             q.høyre = p;                                                        // og p er det høyre banret til q
         }
+        endringer++;
         antall++;                                                               // øker antall
         return true;                                                            // en vellykket innlegging!
     }
@@ -160,6 +161,7 @@ public class SBinTre<T> {
                 s.høyre = r.høyre;                                              // ellers er s sitt høyre barn lik r sitt høyre barn
             }
         }
+        endringer++;
         antall--;                                                               // reduserer antallet
         return true;
     }
@@ -197,6 +199,7 @@ public class SBinTre<T> {
             }
         }
         rot = null;                                                             // siste node, rot er lik null
+        endringer = 0;
         antall = 0;                                                             // antall er nå 0;
     }
 
@@ -212,7 +215,7 @@ public class SBinTre<T> {
             return 0;                                                           // returneres null, da treet ikke godtar null verdier
         }
         int antall = 0;                                                         // initierer tellevariabel
-        int cmp = 0;                                                            // sammenlikningsvariabel
+        int cmp;                                                            // sammenlikningsvariabel
         Node<T> p = rot;                                                        // p node for å traversere fra roten
 
         while (p != null) {                                                     // så lenge p er ulik null
@@ -340,8 +343,8 @@ public class SBinTre<T> {
     static <T> SBinTre<T> deserialize(ArrayList<T> data,                        // tar inn et array, og en comparator
                                       Comparator<? super T> c) {
         SBinTre<T> tre = new SBinTre<>(c);                                      // lager et binærtre som skal returneres
-        for(int i = 0; i < data.size(); i++) {                                  // bruker en for løkke til å hente ut fra arrayet
-            tre.leggInn(data.get(i));                                           // legger verdiene inn i treet
+        for (T d : data) {                                                      // bruker en for løkke til å hente ut fra arrayet
+            tre.leggInn(d);                                                     // legger verdiene inn i treet
         }
         return tre;                                                             // returnerer treet
     }

@@ -49,4 +49,10 @@ Etter å ha klødd meg i hodet en del fordi løsningen min ikke passerte testene
 var feilkodet på en slik måte at det ikke slo ut på testene til oppgave 3, men gjorde at jeg konstant fikk feil når 
 toStringPostOrder() ble kjørt i testene til oppgave 6. Etter å ha fikset opp i denne feilen, så løste hele floken seg.
 
-Warnings:
+Warnings 8:
+- 3 Non-ASCII characters in an identifier warnings på bruk av norske bokstaver.
+- Private constructor 'Node(T, no.oslomet.cs.algdat.Oblig3.SBinTre.Node<T>)' is never used, og den blir aldri brukt!
+- Private field 'endringer' is assigned but never accessed, og det stemmer da vi ikke har noen iteratorer
+- Method 'inneholder(T)' is never used, som også stemmer da den aldri brukes
+- Return value of the method is never used, som også stemmer, da den aldri brukes, kan jo bli brukt i en main metode!
+- Argument 'p' might be null, tar høyde for det da løkken bare kjører hvis treet har mer enn 1 node
