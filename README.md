@@ -10,7 +10,8 @@ Oppgaven er levert av følgende student:
 I oppgave 1 så brukte jeg leggInn metoden fra kompendiet slik det er foreslått i oppgavebeskrivelsen, men så endret jeg 
 i koden der jeg måtte legge inn flere referanser til høyre/venstre barn og forelder.
 
-I oppgave 2 så...
+I oppgave 2 så endret jeg en inneholder(T verdi) metode fra kompendiet til å telle antallet av input verdi i en while løkke
+og returnere dette antallet, i stedet for å returnere true/false.
 
 I oppgave 3 så...
 

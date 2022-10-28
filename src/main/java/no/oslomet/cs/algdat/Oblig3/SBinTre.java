@@ -200,30 +200,32 @@ public class SBinTre<T> {
         antall = 0;                                                             // antall er nå 0;
     }
 
-
-    // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
-    public int antall(T verdi) {
-        // Har tatt utgangspunkt i inneholder() metoden fra kompendiet, da den finner verdier og returnerer true, verdien eksisterer
-        // Har gjort endringer slik at den kan telle opp antallet av den verdien som sendes inn
-        if (verdi == null) {
-            return 0;
+    /**
+     * Oppgave 2: anttal(T verdi)
+     * denne returnerer antallet forekomster av en input verdi i treet
+     * tar hensyn til at det er lov med duplikater i treet
+     * tar utgangspunkt i en inneholder(T verdi) metode fra kompendiet,
+     * har gjort endringer slik at den teller opp, i stedenfor å returnere true/false
+     */
+    public int antall(T verdi) {                                                // tar inn den verdien en vil finne antallet av
+        if (verdi == null) {                                                    // hvis verdien er null
+            return 0;                                                           // returneres null, da treet ikke godtar null verdier
         }
-
         int antall = 0;                                                         // initierer tellevariabel
         int cmp = 0;                                                            // sammenlikningsvariabel
-        Node<T> p = rot;                                                        // traverserer fra roten
+        Node<T> p = rot;                                                        // p node for å traversere fra roten
 
         while (p != null) {                                                     // så lenge p er ulik null
-            cmp = comp.compare(verdi, p.verdi);
-            if (cmp < 0) {
-                p = p.venstre;
+            cmp = comp.compare(verdi, p.verdi);                                 // sammenlikner inputverdi med p sin verdi
+            if (cmp < 0) {                                                      // hvis sammenliknigsvariabelen cmp er mindre enn 0
+                p = p.venstre;                                                  // går p ned til venstre i treet
             }
-            else {                                                              // hvis ikke mindre enn 0, er verdien større eller lik p.verdi
+            else {                                                              // hvis ikke er verdien større enn eller lik 0
                 if(cmp == 0) {                                                  // sjekker først om om de er like
                     antall++;                                                   // i så fall øker vi antallet
                 }
-                p = p.høyre;
-            }
+                p = p.høyre;                                                    // hvis ikke går p nedover mot høyre i treet
+            }                                                                   // og looper gjennom inntil p blir null
         }
         return antall;                                                          // returnerer antallet
     }
