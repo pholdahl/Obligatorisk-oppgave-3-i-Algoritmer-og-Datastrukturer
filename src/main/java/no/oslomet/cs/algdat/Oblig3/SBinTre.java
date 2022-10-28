@@ -119,7 +119,7 @@ public class SBinTre<T> {
 
     // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
     public int antall(T verdi) {
-        // Har tatt utgangspunkt i inneholder() metoden fra kompendiet, da den finner verdier og retunerer true, verdien eksisterer
+        // Har tatt utgangspunkt i inneholder() metoden fra kompendiet, da den finner verdier og returnerer true, verdien eksisterer
         // Har gjort endringer slik at den kan telle opp antallet av den verdien som sendes inn
         if (verdi == null) {
             return 0;
@@ -180,11 +180,15 @@ public class SBinTre<T> {
         return n;                                                               // returnerer noden lengst til venstre
     }
 
+    // Oppgave 4: postorden med oppgave
     public void postorden(Oppgave<? super T> oppgave) {
+        // jeg har gjort tilsvarende koding i fra oppgavesettet fra uke 42
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    // Oppgave 4: postorden rekursivt med oppgave
     public void postordenRecursive(Oppgave<? super T> oppgave) {
+        // jeg har gjort tilsvarende koding i fra oppgavesettet fra uke 42
         postordenRecursive(rot, oppgave);
     }
 
