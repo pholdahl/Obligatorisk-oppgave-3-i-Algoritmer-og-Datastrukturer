@@ -106,11 +106,14 @@ public class SBinTre<T> {
         return true;                                                            // en vellykket innlegging!
     }
 
-    // Oppgave 6: fjern()
-    // 1. p har ingen barn(p er en bladnode)
-    // 2. p har nøyaktig ett barn(venstre eller høyre barn)
-    // 3. p har to barn
-    // alle p har forelder!
+    /**
+     * Oppgave 6: fjern(T verdi)
+     * fjerner input verdi fra treet
+     * vi har tre ulike muligheter:
+     * 1. p har ingen barn(p er en bladnode)
+     * 2. p har nøyaktig ett barn(venstre eller høyre barn)
+     * 3. p har to barn
+     */
     public boolean fjern(T verdi) {                                             // tar utgangspunkt i kode fra kompendiet, tar inn verdien vi vil fjerne
         if (verdi == null) {
             return false;                                                       // treet har ingen nullverdier
@@ -161,34 +164,42 @@ public class SBinTre<T> {
         return true;
     }
 
+    /**
+     * Oppgave 6: fjernAlle(T verdi)
+     * bruker fjern(T verdi), men looper til den har fjernet alle
+     * returnerer antallet verdier som har blitt fjernet fra treet
+     */
     // Oppgave 6: fjernAlle()
-    public int fjernAlle(T verdi) {
-        int antall = -1;
-        boolean fjernet = true;
-        while(fjernet) {
-            antall++;
-            fjernet = fjern(verdi);
+    public int fjernAlle(T verdi) {                                             // tar inn verdien vi vil fjerne alle av
+        int antall = -1;                                                        // antall er -1 fordi while løkka kjører i hvert fall 1 gang og da blir antall minimum 0
+        boolean fjernet = true;                                                 // fjernet er true, men blir false i løkka hvis verdien ikke finnes, eller
+        while(fjernet) {                                                        // while løkke
+            antall++;                                                           // øker antall
+            fjernet = fjern(verdi);                                             // oppdaterer fjernet variabelen og fjerner vedi
         }
-        return antall;
+        return antall;                                                          // returnerer antallet
     }
 
-    // Oppgave 6: nullstill(), denne her er noe annet en fjern
-    // nullstill som bruker første og neste postorden
+    /**
+     * Oppgave 6: nullstill()
+     * en nullstillmetode som bruker første- og nestePostorden()
+     */
     public void nullstill() {
-        if(antall > 1){                         // hvis antallet er større enn 1
-            Node<T> p = førstePostorden(rot);   // (barn) første bladnode
-            while(!tom()) {
-                Node<T> q = nestePostorden(p);  // (forelder) må ta vare på foreldrenoden, da vi nuller ut referansen
-                if(p.forelder != null) {        // hvis p sin forelder ikke er null
-                    p.forelder = null;          // sett foreldre referansen til null
+        if(antall > 1){                                                         // hvis antallet er større enn 1
+            Node<T> p = førstePostorden(rot);                                   // (barn) første bladnode
+            while(!tom()) {                                                     // så lenge treet ikke er tomt
+                Node<T> q = nestePostorden(p);                                  // (forelder) må ta vare på foreldrenoden, da vi nuller ut referansen
+                if(p.forelder != null) {                                        // hvis p sin forelder ikke er null
+                    p.forelder = null;                                          // sett foreldre referansen til null
                 }
-                p = q;                          // p er lik sin forelder
-                antall--;                       // 1 mindre node i treet
+                p = q;                                                          // p er lik sin forelder q
+                antall--;                                                       // 1 mindre node i treet
             }
         }
-        rot = null;                             // siste node, rot er lik 0
-        antall = 0;                             // antall er nå 0;
+        rot = null;                                                             // siste node, rot er lik null
+        antall = 0;                                                             // antall er nå 0;
     }
+
 
     // Oppgave 2: Skal returnere antall forekomster av en verdi i treet, husk at duplikater er tillatt
     public int antall(T verdi) {
