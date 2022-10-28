@@ -182,18 +182,30 @@ public class SBinTre<T> {
 
     // Oppgave 4: postorden med oppgave
     public void postorden(Oppgave<? super T> oppgave) {
-        // jeg har gjort tilsvarende koding i fra oppgavesettet fra uke 42
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(tom()) {                                                         // hvis treet er tomt
+            return;                                                         // returner, fordi da finnes ikke noder å gjøre oppgaver på
+        }
+        Node<T> p = førstePostorden(rot);                                   // finner første node i postorden
+        while (p != null) {                                                 // så lenge p ikke er lik null
+            oppgave.utførOppgave(p.verdi);                                  // utfør oppgave (den første gang er det den første i postorden)
+            p = nestePostorden(p);                                          // bruker nestepostorden metoden ellers
+        }                                                                   // tilslutt blir p lik null, og da bryter vi ut av while løkka
     }
 
     // Oppgave 4: postorden rekursivt med oppgave
-    public void postordenRecursive(Oppgave<? super T> oppgave) {
-        // jeg har gjort tilsvarende koding i fra oppgavesettet fra uke 42
-        postordenRecursive(rot, oppgave);
-    }
-
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(p.venstre != null) {                                                 // hvis p sin venstre er ulik null
+            postordenRecursive(p.venstre, oppgave);                             // send p sin venstre med oppgave rekursivt inn i metoden                                          // at p sitt venstre og p sitt høyre barn != null
+        }                                                                       // foregår helt til p sin venstre er lik null
+        if(p.høyre != null) {                                                   // hvis p sin høyre er ulik null
+            postordenRecursive(p.høyre, oppgave);                               // send p sin høyre med oppgave rekursivt inn i metoden
+        }                                                                       // foregår helt til p sin høyre er lik null
+        oppgave.utførOppgave(p.verdi);                                          // hvis p sin venstre og p sin høyre er lik null
+    }                                                                           // er det en bladnode, utfør oppgave!
+
+    // Oppgave 4: postorden rekursivt med oppgave, bytta om så private metoden ligger over public metoden
+    public void postordenRecursive(Oppgave<? super T> oppgave) {
+        postordenRecursive(rot, oppgave);                                       // kaller den private metoden med rot og oppgave som input
     }
 
     public ArrayList<T> serialize() {
