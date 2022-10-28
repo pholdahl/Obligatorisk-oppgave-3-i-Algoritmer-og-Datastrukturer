@@ -1,10 +1,7 @@
 package no.oslomet.cs.algdat.Oblig3;
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class SBinTre<T> {
     private static final class Node<T>   // en indre nodeklasse
@@ -208,16 +205,34 @@ public class SBinTre<T> {
         postordenRecursive(rot, oppgave);                                       // kaller den private metoden med rot og oppgave som input
     }
 
-    // Oppgave 5: Skal gjøre om et binærtre til en ArrayList (må bruke en stack)
+    // Oppgave 5: Skal gjøre om et binærtre til en ArrayList (må ikke bruke en stack, SKAL BRUKE EN KØ!)
     public ArrayList<T> serialize() {
-        // Tenker at jeg må se litt på ukesoppgavene fra uke 41
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (tom()) {                                                            // hvis binærtreet er tomt
+            return null;                                                        // returner null;
+        }
+        ArrayDeque<Node<T>> kø = new ArrayDeque<>(antall);                      // ellers bruker jeg en ArrayDeque som kø for nodene
+        ArrayList<T> a = new ArrayList<>(antall);                               // og lager en Arraylist a som skal returnere verdiene
+        kø.add(rot);                                                            // legger til roten i køen
+        while (!kø.isEmpty()) {                                                 // while løkke så lenge køen har innhold
+            Node<T> p = kø.poll();                                              // tar ut den første i køen og lagrer i p
+            a.add(p.verdi);                                                     // legger p sin verdi inn i a
+            if (p.venstre != null) {                                            // sjekker om p sin venstre er ulik null
+                kø.add(p.venstre);                                              // hvis den er det, så legger vi den inn i køen
+            }                                                                   // hvis p sin venstre er null
+            if (p.høyre != null) {                                              // sjekker vi om p sin høyre er ulik null
+                kø.add(p.høyre);                                                // hvis den er det, så legger vi den inn i køen
+            }                                                                   // og lik fortsetter vi helt til køen er tom
+        }
+        return a;                                                               // returnerer a med verdiene lagt inn i riktig rekkefølge
     }
 
     // Oppgave 5: Skal gjøre om en ArrayList til et binærtre
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        // Dette blir på en måte bare motsatt av hva jeg gjør i metoden over
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        SBinTre<K> tre = new SBinTre<>(c);                                      // lager et binærtre som skal returneres
+        for(int i = 0; i < data.size(); i++) {                                  // bruker en for løkke til å hente ut fra arrayet
+            tre.leggInn(data.get(i));                                           // legger verdiene inn i treet
+        }
+        return tre;                                                             // returnerer treet
     }
 
 
