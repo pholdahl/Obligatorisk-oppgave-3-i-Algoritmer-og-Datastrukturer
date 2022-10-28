@@ -149,15 +149,35 @@ public class SBinTre<T> {
     }
 
     // Oppgave 3: første postorden er den første noden når en traverserer som er en bladnode
-    private static <T> Node<T> førstePostorden(Node<T> p) {
-        // minner om en av ukesoppgavene fra uke42, må sjekke ut
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+    private static<T> Node<T> førstePostorden(Node<T> p) {
+        if(p == null) {                                                         // hvis p er null, er input enten en nullverdi, eller foreldrenoden til roten i treet
+            return null;                                                        // returner null
+        }
+        while(true) {                                                           // while løkke som brytes ved break eller return
+            if(p.venstre != null) {                                             // hvis p sitt venstre barn ikke er null
+                p = p.venstre;                                                  // da er p lik sitt venstre barn
+            } else if(p.høyre != null) {                                        // hvis p sitt venstre barn er null, og p sitt høyre barn ikke er null
+                p = p.høyre;                                                    // da er p lik sitt høyre barn
+            } else {                                                            // hvis p sitt venstre og høyre barn er null, er det en bladnode
+                return p;                                                       // den første noden i postorden returneres
+            }
+        }
     }
 
     // Oppgave 3: neste postorden må ha noe å gjøre med forelder til første postorden
-    private static <T> Node<T> nestePostorden(Node<T> p) {
-        // minner også om en av ukesoppgavene fra uke42
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+    private static <T> Node<T> nestePostorden(Node<T> p) {                      // det som skal inn her som p er den første i postorden
+        Node<T> q = p.forelder;                                                 // henter ut forelder til p og legger i q
+        if(q == null) {                                                         // sjekker om q er null, i så fall er p rot
+            return null;                                                        // så da returnerer vi null
+        }
+        if(q.høyre == p || q.høyre == null) {                                   // hvis ikke så sjekker vi om q sin høyre er lik p eller om q sin høyre er lik null
+            return q;                                                           // i så fall skal vi returnere q
+        }
+        Node<T> n = q.høyre;                                                    // hvis ikke, så må vi hente ut q sin høyre, legger den i n
+        while(n.venstre != null) {                                              // while løkke for å traversere ned til venstre
+            n = n.venstre;                                                      // til vi finner den noden lengst til venstre
+        }
+        return n;                                                               // returnerer noden lengst til venstre
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
